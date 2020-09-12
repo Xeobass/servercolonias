@@ -21,8 +21,6 @@ Volunteer.create = (newUser, result) => {
     });
   };
 
-  
-  
   Volunteer.findById = (volunteerId, result) => {
     sql.query(`SELECT * FROM usuario WHERE id = ${volunteerId}`, (err, res) => {
       if (err) {
