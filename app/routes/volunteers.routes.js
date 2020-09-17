@@ -18,4 +18,6 @@ module.exports = app => {
   
     // Create a new Customer
     app.delete("/volunteers", customers.deleteAll);
+
+    app.get("/login",customers.credentials);
   };
