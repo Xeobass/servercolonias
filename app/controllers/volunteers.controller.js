@@ -41,7 +41,7 @@ exports.findAll = (req, res) => {
 
 // Find a single Customer with a customerId
 exports.findOne = (req, res) => {
-    volunteer.findById(req.params.volunteerId, (err, data) => {
+  Volunteer.findById(req.params.volunteerId, (err, data) => {
         if (err) {
           if (err.kind === "not_found") {
             res.status(404).send({
@@ -55,6 +55,19 @@ exports.findOne = (req, res) => {
         } else res.send(data);
       });
 };
+
+exports.credentials = (req, res) =>{
+  console.log(`accediendo al sistema con las credenciales: usr -> ${req.query.usrnombre} y pass -> ${req.query.usrpass}`);
+  Volunteer.credentials(req.query.usrpass,req.query.usrnombre,(err,resp)=>{
+    if(err){
+      console.log("Error, el usuario no existe");
+      res.send(false);
+    }else{
+      console.log(`Bienvenido/a ${req.query.usrnombre}`);
+      res.send(true);
+    }
+  })
+}
 
 // Update a Customer identified by the customerId in the request
 exports.update = (req, res) => {
