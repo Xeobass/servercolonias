@@ -40,7 +40,22 @@ Volunteer.create = (newUser, result) => {
     });
   };
 
-  //Volunteer.login = ()=>{volunteerPass,volunteerName}
+  Volunteer.credentials = (volunteerPass,volunteerName,result)=>{
+    sql.query(`SELECT * FROM usuario WHERE usrnombre =\'${volunteerName}\' AND usrpass=\'${volunteerPass}\';`,(err,res)=>{
+      if(err){
+        console.log("Error solicitando datos de login:",err);
+        result(err,null);
+        return;
+      }
+
+      if(res.length){
+        result(null,res[0]);
+        return;
+      }
+
+      result({kind:"not_found"},null);
+    })
+  }
 
   Volunteer.getAll = result => {
     sql.query("SELECT * FROM usuario", (err, res) => {
