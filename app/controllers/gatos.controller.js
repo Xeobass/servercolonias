@@ -73,6 +73,17 @@ exports.getSexo = (req,res)=>{
   })
 }
 
+exports.getPositivo = (req,res)=>{
+  Gatos.getPositivo((err,data)=>{
+    if(err)
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving positivo."
+    });
+  else res.send(data);
+  })
+}
+
 exports.getSituacion = (req,res)=>{
   Gatos.getSituacion((err,data)=>{
     if(err)
