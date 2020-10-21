@@ -124,6 +124,19 @@ Gatos.create = (newGato, result) => {
     });
   };
 
+  Gatos.getPositivo = result => {
+    sql.query("SELECT * FROM positivo", (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+  
+      console.log("positivos: ", res);
+      result(null, res);
+    });
+  };
+
   Gatos.getLastGato = result => {
     sql.query("SELECT idGato,nombreGato FROM gatos ORDER BY idGato DESC LIMIT 1", (err, res) => {
       if (err) {
