@@ -11,6 +11,7 @@ module.exports = app => {
     app.get("/sexogatos", gatos.getSexo);
     app.get("/situacion", gatos.getSituacion);
     app.get("/ultimogato", gatos.getLastGato);
+    app.get("/positivo", gatos.getPositivo);
   
     // Retrieve a single Customer with customerId
     app.get("/gatos/:gatoId", gatos.findOne);
