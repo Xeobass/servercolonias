@@ -15,14 +15,16 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '50mb',type:'application/
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Bienvenid@ a la aplicación de gestión de la protectora Colonias Canguesas." });
 });
 
 
 
+require("./app/routes/huchas.routes.js")(app);
 require("./app/routes/veterinarios.routes.js")(app);
 require("./app/routes/volunteers.routes.js")(app);
 require("./app/routes/gatos.routes.js")(app);
+require("./app/routes/colonias.routes.js")(app);
 
 app.listen(port,()=>{
     console.log(`Servidor escuchando en puerto ${port}`);
