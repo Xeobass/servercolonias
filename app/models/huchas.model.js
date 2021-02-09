@@ -23,10 +23,23 @@ Huchas.create = (newHucha, result) => {
     });
   };
 
-  
+  Huchas.insertRecaudacion = (id,fechaRecogida,cuantia,result)=>{
+    sql.query("INSERT INTO `cuantiaHuchas` SET ?",{idCuantia:null,idHucha:id,fechaRecogida:fechaRecogida,cuantia:cuantia},(err,res)=>{
 
-  Huchas.findById = (volunteerId, result) => {
-    sql.query(`SELECT * FROM usuario WHERE id = ${volunteerId}`, (err, res) => {
+        if(err){
+            console.log("Error insertando la cantidad")
+            result(err,null);
+            return;
+        }
+    
+        console.log("recaudación insertada!");
+        result(null,{id:res.insertId,msg:"insertado"})
+    });
+
+};
+
+  Huchas.findById = (idHucha, result) => {
+    sql.query(`SELECT * FROM cuantiaHuchas WHERE idHucha = ${idHucha}`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -34,8 +47,8 @@ Huchas.create = (newHucha, result) => {
       }
   
       if (res.length) {
-        console.log("found volunteer: ", res[0]);
-        result(null, res[0]);
+        console.log("found hucha: ", res);
+        result(null, res);
         return;
       }
   
@@ -47,7 +60,7 @@ Huchas.create = (newHucha, result) => {
   
 
   Huchas.getAll = result => {
-    sql.query("SELECT * FROM huchas", (err, res) => {
+    sql.query("SELECT * FROM huchas ORDER BY `huchas`.`lugarHucha` ASC", (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);
@@ -60,7 +73,7 @@ Huchas.create = (newHucha, result) => {
   };
 
 
-
+ 
   Huchas.updateById = (id, volunteer, result) => {
     sql.query(
       "UPDATE usuario SET email = ?, name = ?, active = ? WHERE id = ?",
