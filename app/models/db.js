@@ -10,9 +10,19 @@ const connection = mysql.createConnection({
 });
 
 // open the MySQL connection
-connection.connect(error => {
-    if (error) throw error;
-    console.log("Successfully connected to the database.");
-  });
+connection.connect();
+
+connection.on("connect",()=>{
+    console.log("Conectado a la BBDD correctamente");
+});
+
+connection.on("error",(err)=>{
+  console.error("Error en la conexión de la BBDD:",err);
+});
+
+connection.on("close",()=>{
+  console.log("Conexión cerrada...reabriendo");
+  connection.connect();
+});
   
   module.exports = connection;
