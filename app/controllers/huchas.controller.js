@@ -9,7 +9,9 @@ exports.create = (req, res) => {
     });
   }
 
-  // Create a cat
+  console.log("valor de req:",req);
+
+  // Create a hucha
   const huchas = new Huchas({
     idHucha:req.body.idHucha,
     lugarHucha:req.body.lugarHucha,
@@ -31,6 +33,7 @@ exports.create = (req, res) => {
 
 // Retrieve all Customers from the database.
 exports.findAll = (req, res) => {
+  console.log("llamando a findAll");
     Huchas.getAll((err, data) => {
         if (err)
           res.status(500).send({
@@ -44,15 +47,15 @@ exports.findAll = (req, res) => {
 
 // Find a single Customer with a customerId
 exports.findOne = (req, res) => {
-    Huchas.findById(req.params.gatoId, (err, data) => {
+    Huchas.findById(req.params.idHucha, (err, data) => {
         if (err) {
           if (err.kind === "not_found") {
             res.status(404).send({
-              message: `Not hucha Customer with id ${req.params.huchaId}.`
+              message: `Not hucha hucha with id ${req.params.idHucha}.`
             });
           } else {
             res.status(500).send({
-              message: "Error retrieving hucha with id " + req.params.huchaId
+              message: "Error retrieving hucha with id " + req.params.idHucha
             });
           }
         } else res.send(data);
@@ -87,6 +90,17 @@ exports.update = (req, res) => {
   );
 
  
+};
+
+exports.insertRecaudacion = (req,res)=>{
+  console.log("valor de req insert:",req);
+  Huchas.insertRecaudacion(req.body.idHucha,req.body.fechaRecogida,req.body.cuantia,(err,data)=>{
+    if(err){
+      console.log("Error insertando nueva cantidad a la hucha");
+    }
+
+    res.send(data);
+  });
 };
 
 // Delete a Customer with the specified customerId in the request
