@@ -28,6 +28,29 @@ Colonias.create = (newColonia, result) => {
 
 
 
+Colonias.getEstadoColonias = (result) =>{
+  console.log("Obteniendo los estados");
+  sql.query("SELECT * FROM `estadosColonias`",(err,res)=>{
+    if(err){
+      console.error("Error obteniendo los estados de la colonia.",err);
+      result(err,null);
+      return;
+    }
+
+    if(res.length){
+      console.log("Econtrados estados de colonias.",res);
+      result(null,res);
+      return;
+    }
+
+    result({kind:"not_found"}, null);
+  });
+};
+
+
+
+
+
   Colonias.findById = (idHucha, result) => {
     sql.query(`SELECT * FROM cuantiaHuchas WHERE idHucha = ${idHucha}`, (err, res) => {
       if (err) {

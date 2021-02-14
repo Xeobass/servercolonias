@@ -13,9 +13,9 @@ exports.create = (req, res) => {
 
   // Create a colonia
   const colonias  = new Colonias({
-    idColonia : req.query.idColonia,
-    nombreColonia : req.query.nombreColonia,
-    controlado : req.query.controlado
+    idColonia : req.body.idColonia,
+    nombreColonia : req.body.nombreColonia,
+    controlado : req.body.controlado
   });
 
   console.log("La colonia definido es:",colonias);
@@ -42,6 +42,14 @@ exports.findAll = (req, res) => {
       });
 };
 
+exports.getEstadoColonias = (req,res)=>{
+  Colonias.getEstadoColonias((err,data)=>{
+    if(err)
+      res.status(500).send({message:err.message || "Error al obtener los datos de los etados de las colonias."});
+    else
+      res.send(data);
+  });
+};
 
 // Find a single Customer with a customerId
 exports.findOne = (req, res) => {
